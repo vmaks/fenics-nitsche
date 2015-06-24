@@ -46,7 +46,8 @@ def penalty():
     mu = Constant(10)
     ds = Measure('ds')[boundaries]
     n = FacetNormal(mesh)
-    h = mesh.ufl_cell().max_facet_edge_length
+    # h = mesh.ufl_cell().max_facet_edge_length
+    h = CellSize(mesh)
 
     D = lambda u: sym(grad(u))
     S = lambda u, p: -p*Identity(2) + 2*mu*D(u)
@@ -104,6 +105,9 @@ def penalty():
     plot(p, title='Penalty, pressure')
     interactive()
 
+    File("Freeslip_Penalty/u.pvd") << u
+    File("Freeslip_Penalty/p.pvd") << p
+
 
 def nitsche():
     '''Velocity bcs on wall and inlet as well as u.n=0 on cylinder are enforced
@@ -131,7 +135,8 @@ def nitsche():
 
     ds = Measure('ds')[boundaries]
     n = FacetNormal(mesh)
-    h = mesh.ufl_cell().max_facet_edge_length
+    # h = mesh.ufl_cell().max_facet_edge_length
+    h = CellSize(mesh)
 
     D = lambda u: sym(grad(u))
     S = lambda u, p: -p*Identity(2) + 2*mu*D(u)
@@ -219,7 +224,10 @@ def nitsche():
     plot(p, title='Nitsche, pressure')
     interactive()
 
+    File("Freeslip_Nitsche/u.pvd") << u
+    File("Freeslip_Nitsche/p.pvd") << p
+
 # -----------------------------------------------------------------------------
 
-#penalty()
-nitsche()
+penalty()
+# nitsche()

@@ -7,3 +7,6 @@
 *.msh
 *.png
 .ipynb_checkpoints/
+*.pvd
+*.vtu
+/.idea
